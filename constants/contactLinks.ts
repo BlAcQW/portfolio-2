@@ -18,7 +18,7 @@ export const contactlinks: ContactLink[] = [
         kind: "linkedin",
         title: "LinkedIn",
         value: "in/henyo-enoch",
-        href: "https://www.linkedin.com/in/henyo-enoch",
+        href: "https://www.linkedin.com/in/henyo-enoch-59b487265/",
     },
     {
         kind: "phone",

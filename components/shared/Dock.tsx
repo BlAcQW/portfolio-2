@@ -8,7 +8,7 @@ export function FloatingDockDemo() {
         {
             title: "LinkedIn",
             icon: <LinkedInLogoIcon className="h-full w-full text-emerald-300" />,
-            href: "https://www.linkedin.com/in/henyo-enoch",
+            href: "https://www.linkedin.com/in/henyo-enoch-59b487265/",
         },
         {
             title: "Email",

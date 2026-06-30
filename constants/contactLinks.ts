@@ -1,4 +1,4 @@
-export type ContactKind = "email" | "linkedin" | "phone" | "location";
+export type ContactKind = "email" | "linkedin" | "github" | "instagram" | "phone" | "location";
 
 export type ContactLink = {
     kind: ContactKind;
@@ -19,6 +19,12 @@ export const contactlinks: ContactLink[] = [
         title: "LinkedIn",
         value: "in/henyo-enoch",
         href: "https://www.linkedin.com/in/henyo-enoch-59b487265/",
+    },
+    {
+        kind: "github",
+        title: "GitHub",
+        value: "github.com/BlAcQW",
+        href: "https://github.com/BlAcQW",
     },
     {
         kind: "phone",

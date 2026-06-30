@@ -1,15 +1,20 @@
 'use client'
 import Link from "next/link";
-import { Mail, Linkedin, Phone, MapPin, type LucideIcon } from "lucide-react";
+import { Mail, Linkedin, Github, Instagram, Phone, MapPin, type LucideIcon } from "lucide-react";
 import { contactlinks, type ContactKind } from "@/constants/contactLinks";
 import SlideIn from "./SlideIn";
 
 const iconFor: Record<ContactKind, LucideIcon> = {
   email: Mail,
   linkedin: Linkedin,
+  github: Github,
+  instagram: Instagram,
   phone: Phone,
   location: MapPin,
 };
+
+// Icon links shown on the right of the card (everything with a link).
+const iconLinks = contactlinks.filter((link) => link.href);
 
 function Contact() {
   const year = 2026;
@@ -18,57 +23,55 @@ function Contact() {
     <footer id="contact" className="px-5 pb-12 pt-24 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <SlideIn direction="bottom">
-          <div className="glass relative overflow-hidden rounded-[2rem] p-9 md:p-14">
-            {/* Ambient glow */}
-            <div className="accent-glow animate-glow-pan pointer-events-none absolute -right-10 -top-10 h-60 w-60 rounded-full opacity-25 blur-3xl" />
+          {/* Header */}
+          <div className="mb-7 flex items-center justify-center gap-2">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+              <Mail className="h-5 w-5" />
+            </span>
+            <span className="font-display text-2xl font-bold">
+              <span className="text-gradient">Get in touch!</span>
+            </span>
+          </div>
 
-            <div className="relative text-center">
-              <span className="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
-                Get in touch
-              </span>
-              <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
-                Let&apos;s build something <span className="text-gradient">worth shipping</span>.
-              </h2>
-              <Link
-                href="mailto:enochhenyo@gmail.com"
-                className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-6 py-3 text-emerald-200 transition-colors duration-300 hover:bg-emerald-400/20"
-              >
-                <Mail className="h-4 w-4" /> enochhenyo@gmail.com
-              </Link>
-            </div>
+          {/* Single card: email on the left, contact icons on the right */}
+          <div className="glass relative overflow-hidden rounded-3xl p-8 transition-colors duration-300 hover:border-emerald-400/30">
+            <div className="accent-glow pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full opacity-20 blur-3xl" />
 
-            {/* Contact details */}
-            <div className="relative mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {contactlinks.map((link) => {
-                const Icon = iconFor[link.kind];
-                const inner = (
-                  <div className="flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 transition-colors duration-300 hover:border-emerald-400/30">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-emerald-400/10 text-emerald-300">
+            <div className="relative flex flex-col items-center justify-between gap-6 sm:flex-row">
+              <div className="text-center sm:text-left">
+                <span className="text-xs font-medium tracking-wide text-neutral-400">
+                  Reach out to me <span aria-hidden="true">→</span>
+                </span>
+                <br />
+                <Link href="mailto:enochhenyo@gmail.com">
+                  <span className="font-display text-xl font-semibold tracking-wide text-gradient transition-opacity hover:opacity-80">
+                    enochhenyo@gmail.com
+                  </span>
+                </Link>
+              </div>
+
+              <div className="flex flex-row items-center gap-3">
+                {iconLinks.map((link, index) => {
+                  const Icon = iconFor[link.kind];
+                  return (
+                    <Link
+                      key={link.kind}
+                      href={link.href!}
+                      aria-label={link.title}
+                      title={`${link.title} · ${link.value}`}
+                      {...(link.href!.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] text-emerald-300 transition-all duration-300 hover:scale-110 hover:border-emerald-400/40 hover:text-emerald-200"
+                      style={{
+                        transform: `rotate(${index % 2 === 0 ? -(index + 1) * 2 : (index + 1) * 2}deg)`,
+                      }}
+                    >
                       <Icon className="h-5 w-5" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-xs uppercase tracking-wider text-neutral-500">
-                        {link.title}
-                      </p>
-                      <p className="truncate text-neutral-200">{link.value}</p>
-                    </div>
-                  </div>
-                );
-
-                return link.href ? (
-                  <Link
-                    key={link.kind}
-                    href={link.href}
-                    {...(link.kind === "linkedin"
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <div key={link.kind}>{inner}</div>
-                );
-              })}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </SlideIn>
@@ -76,7 +79,9 @@ function Contact() {
         {/* Footer line */}
         <div className="mt-10 flex flex-col items-center justify-between gap-2 text-sm text-neutral-500 sm:flex-row">
           <span className="font-display font-semibold text-neutral-300">Enoch Henyo</span>
-          <span>© {year} · Built in Accra, Ghana</span>
+          <span className="flex items-center gap-1.5">
+            <MapPin className="h-3.5 w-3.5" /> Accra, Ghana · © {year}
+          </span>
         </div>
       </div>
     </footer>

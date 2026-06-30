@@ -1,68 +1,100 @@
 import { stackIcons } from "@/constants/stackIcons";
+import { languages } from "@/constants/education";
 import SlideIn from "./SlideIn";
-
 
 function Skills() {
   return (
-    <div className="skills-container px-4 lg:px-8 my-56 cursor-pointer overflow-hidden">
-      <section className="md:max-w-4xl mx-auto lg:max-w-6xl">
+    <section id="about" className="overflow-hidden px-5 py-24 lg:px-8">
+      <div className="mx-auto max-w-6xl">
         <SlideIn direction="left" duration={0.7}>
-          <h1 className="text-5xl md:text-6xl lg:text-8xl pb-9 font-medium text-transparent bg-clip-text bg-gradient-to-br from-pink-300 to-yellow-300">
-            I don't have dark <br />secrets, only bright ones</h1>
+          <span className="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
+            About
+          </span>
+          <h2 className="font-display mt-3 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
+            Engineering products where <span className="text-gradient">design</span> meets
+            real-world <span className="text-gradient">intelligence</span>.
+          </h2>
         </SlideIn>
 
-
-        {/* GRID SECTION */}
-        <div className="grid grid-cols-12 gap-4">
-          {/* Left Section */}
-          <div className="col-span-12 lg:col-span-4">
+        <div className="mt-12 grid grid-cols-12 gap-6">
+          {/* Stack */}
+          <div className="col-span-12 lg:col-span-5">
             <SlideIn direction="bottom" duration={0.7}>
-              <div className="p-8 rounded-3xl skills-bg bg-neutral-900 text-gray-100">
-                <div className="grid grid-cols-2 gap-4"> {/* Grid layout with 2 columns */}
-                  {stackIcons.map((icon, index) => (
+              <div className="glass h-full rounded-3xl p-8">
+                <h3 className="text-sm font-medium uppercase tracking-[0.2em] text-neutral-400">
+                  Stack
+                </h3>
+                <div className="mt-5 grid grid-cols-2 gap-3">
+                  {stackIcons.map((icon) => (
                     <div
-                      key={index}
-                      className="flex items-center py-1.5 px-3 text-xs font-medium"
+                      key={icon.name}
+                      className="flex items-center gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-sm text-neutral-200 transition-colors hover:border-emerald-400/30"
                     >
                       <img
-                        className={`w-9 h-9 ${icon.style || ""}`}
+                        className={`h-6 w-6 ${icon.style || ""}`}
                         src={icon.src}
                         alt={icon.name}
                       />
-                      <span className="pl-2">{icon.name}</span>
+                      <span>{icon.name}</span>
                     </div>
+                  ))}
+                </div>
+
+                {/* Languages */}
+                <h3 className="mt-8 text-sm font-medium uppercase tracking-[0.2em] text-neutral-400">
+                  Languages
+                </h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {languages.map((lang) => (
+                    <span
+                      key={lang.name}
+                      className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-neutral-300"
+                    >
+                      {lang.name}
+                      <span className="text-neutral-500"> · {lang.level}</span>
+                    </span>
                   ))}
                 </div>
               </div>
             </SlideIn>
           </div>
 
-
-          {/* Right Section */}
-          <div className="col-span-12 lg:col-span-8 font-light text-left tracking-wide text-gray-300  transition-all duration-300">
+          {/* Narrative */}
+          <div className="col-span-12 lg:col-span-7">
             <SlideIn direction="right" duration={0.7}>
-              <div className="rounded-3xl bg-neutral-900 p-10">
+              <div className="glass h-full rounded-3xl p-9 text-left tracking-wide text-neutral-300">
                 <p>
-                  My journey into <span className="text-gray-50 font-medium">software engineering </span> began with a passion for artistic creation, honed through drawing and making music.
-                  This creative background naturally guided me toward the world of technology, where I could merge artistry with problem-solving through software development.
+                  My path into{" "}
+                  <span className="font-medium text-white">software engineering</span>{" "}
+                  started with hands-on IT — troubleshooting systems and networks — before
+                  I found my real interest in building software that people actually use.
                 </p>
-                <p className="pt-3">
-                  I specialize in both <span className="text-gray-50 font-medium">frontend </span>and <span className="text-gray-50 font-medium">backend </span>development, with extensive experience across the full stack. I thrive on the continuous learning and
-                  creativity that coding offers, enjoying the challenge of transforming ideas into impactful digital solutions.
-                  <span className="text-gray-50 font-medium">
-                    {" "}"For me, coding is not just a profession, it's a space to innovate and unleash my creativity"
+                <p className="mt-4">
+                  Today I work across the full stack, and I&apos;m especially drawn to{" "}
+                  <span className="font-medium text-white">applied AI</span>: designing,
+                  building, and testing AI agents that automate work and hold natural
+                  conversations. At{" "}
+                  <span className="font-medium text-white">IKIEGUY Software</span> I build
+                  voice-AI agents, integrate external services and APIs, and ship UI across
+                  agile sprint cycles.
+                </p>
+                <p className="mt-4">
+                  Whether it&apos;s a{" "}
+                  <span className="font-medium text-white">voice agent</span>, a
+                  multi-tenant <span className="font-medium text-white">SaaS</span>, or a
+                  cinematic marketing site, I care about clean architecture, thoughtful UX,
+                  and shipping things that perform.
+                  <span className="text-gradient">
+                    {" "}
+                    For me, building software is where creativity and problem-solving meet.
                   </span>
-                </p>
-                <p className="pt-3">
-                  Beyond coding, I enjoy video creation , video editing and watching anime, both of which inspire my approach to UI/UX design by shaping how I think about  <span className="text-gray-50 font-medium">visual
-                    storytelling</span> and <span className="text-gray-50 font-medium">aesthetics ✨</span>
                 </p>
               </div>
             </SlideIn>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
 

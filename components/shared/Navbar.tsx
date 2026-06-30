@@ -1,32 +1,54 @@
-import Link from 'next/link'; // Import Link from Next.js
-import { navigationOnLargeScreen, navigationOnMobile } from '@/constants/navigation';
+import Link from "next/link";
+import { navigationOnLargeScreen, navigationOnMobile, type NavItem } from "@/constants/navigation";
+
+const externalProps = (item: NavItem) =>
+    item.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
 const Navbar = () => {
     return (
-        <div className="fixed z-50 top-6 inset-x-0 mx-auto w-fit">
-            {/* ON LARGE SCREEN DEVICES */}
-            <nav className="hidden md:block lg:block bg-neutral-950 rounded-full text-pink-50 font-sans text-sm pr-3 pl-7 py-2 navbar">
-                <ul className="flex flex-row items-center gap-x-8 cursor-pointer tracking-wide">
-                    {navigationOnLargeScreen.map((nav, index) => (
-                        <Link key={index} href={nav.href} {...(nav.name === 'Resume' && { target: "_blank", rel: "noopener noreferrer" })}>
-                            <li className='hover:text-pink-300 transition duration-300 ease-in-out'>{nav.name}</li>
-                        </Link>
-                    ))}
-                    <Link href='mailto:somkeneoj@gmail.com'>
-                        <li className="bg-neutral-800 text-white rounded-full px-4 py-2 transition duration-300 ease-in-out hover:bg-neutral-900 border border-neutral-700">
-                            <span className="animate-pulse-ring inline-block bg-green-600 rounded-full w-2 h-2 mr-2"></span>Let's Work
+        <div className="fixed inset-x-0 top-5 z-50 mx-auto w-fit px-4">
+            {/* LARGE SCREENS */}
+            <nav className="navbar hidden rounded-full bg-neutral-950/70 py-2 pl-7 pr-2 text-sm text-neutral-200 backdrop-blur-xl md:block">
+                <ul className="flex flex-row items-center gap-x-7 tracking-wide">
+                    {navigationOnLargeScreen.map((nav) => (
+                        <li key={nav.name}>
+                            <Link
+                                href={nav.href}
+                                {...externalProps(nav)}
+                                className="text-neutral-300 transition-colors duration-300 hover:text-emerald-300"
+                            >
+                                {nav.name}
+                            </Link>
                         </li>
-                    </Link>
+                    ))}
+                    <li>
+                        <Link
+                            href="mailto:enochhenyo@gmail.com"
+                            className="flex items-center rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-emerald-200 transition-colors duration-300 hover:bg-emerald-400/20"
+                        >
+                            <span className="relative mr-2 flex h-2 w-2">
+                                <span className="animate-pulse-ring absolute inline-flex h-full w-full rounded-full bg-emerald-400" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                            Let&apos;s work
+                        </Link>
+                    </li>
                 </ul>
             </nav>
 
-            {/* ON MOBILE DEVICES */}
-            <nav className="md:hidden lg:hidden  bg-neutral-950 rounded-full text-pink-50 font-sans text-sm py-4 px-16 navbar nav-mobile">
-                <ul className="flex flex-row items-center gap-x-8 cursor-pointer tracking-wide">
-                    {navigationOnMobile.map((mobileNav, index) => (
-                        <Link key={index} href={mobileNav.href} {...(mobileNav.name === 'Resume' && { target: "_blank", rel: "noopener noreferrer" })}>
-                            <li className='hover:text-pink-300 transition duration-300 ease-in-out'>{mobileNav.name}</li>
-                        </Link>
+            {/* MOBILE */}
+            <nav className="navbar rounded-full bg-neutral-950/70 px-7 py-3 text-sm text-neutral-200 backdrop-blur-xl md:hidden">
+                <ul className="flex flex-row items-center gap-x-6 tracking-wide">
+                    {navigationOnMobile.map((nav) => (
+                        <li key={nav.name}>
+                            <Link
+                                href={nav.href}
+                                {...externalProps(nav)}
+                                className="transition-colors duration-300 hover:text-emerald-300"
+                            >
+                                {nav.name}
+                            </Link>
+                        </li>
                     ))}
                 </ul>
             </nav>

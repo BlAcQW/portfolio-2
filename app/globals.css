@@ -2,119 +2,103 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@layer base {
-  .hero-ring {
-    @apply absolute inset-0 border-2 left-1/2 -translate-y-1/2 rounded-full border-neutral-950/5 shadow-[0_0_30px_inset] shadow-pink-400/5;
-  }
+:root {
+  /* Electric emerald → cyan accent. Swap these two to re-theme the whole site. */
+  --accent: #34d399;
+  --accent-2: #22d3ee;
+  --bg: #070708;
 }
-
-
-/* Define the keyframes for the blinking effect */
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
 
 html {
   scroll-behavior: smooth;
+  /* Offset anchor targets so the fixed navbar doesn't cover section headings. */
+  scroll-padding-top: 6rem;
 }
 
+body {
+  background-color: var(--bg);
+}
 
+/* Subtle film grain over the whole page for depth. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@layer components {
+  /* Glassmorphism surface used across cards. */
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-md;
+  }
+
+  /* Accent gradient text. */
+  .text-gradient {
+    @apply bg-gradient-to-r from-emerald-300 via-teal-200 to-cyan-300 bg-clip-text text-transparent;
+  }
+
+  /* Hero concentric rings, recoloured to the accent. */
+  .hero-ring {
+    @apply absolute inset-0 left-1/2 -translate-y-1/2 rounded-full border border-white/[0.04];
+    box-shadow: 0 0 60px -20px var(--accent) inset;
+  }
+
+  .navbar {
+    @apply border border-white/10;
+    box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@layer utilities {
+  /* Soft radial accent glow placed behind hero / section headings. */
+  .accent-glow {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--accent) 60%, transparent),
+      transparent
+    );
+  }
+
+  .accent-glow-2 {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklab, var(--accent-2) 55%, transparent),
+      transparent
+    );
+  }
+}
+
+/* Pulsing "available" indicator. */
 @keyframes pulse-ring {
   0% {
     transform: scale(1);
     opacity: 1;
   }
-
   70% {
     transform: scale(2.5);
     opacity: 0;
   }
-
   100% {
     transform: scale(3);
     opacity: 0;
   }
 }
 
-.navbar {
-  font-family: sans-serif;
-  box-shadow: 0 0 10px 1px rgba(56, 55, 53, 0.2);
-  border: 2px solid rgb(37, 35, 34);
-}
-
-
 .animate-pulse-ring {
-  animation: pulse-ring 1.1s infinite;
+  animation: pulse-ring 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-.hero {
-  font-family: sans-serif;
-}
-
-.hero-header {
-  font-weight: 600;
-}
-
-.card-container {
-  font-family: sans-serif;
-}
-
-.experience-container p {
-  font-family: sans-serif;
-}
-
-.experience-card:hover {
-  background-color: rgb(15, 15, 15);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-
-/* MEDIA QUERY STYLINGS */
-@media (max-width: 388px) {
-  .nav-mobile {
-    padding-left: 2rem;
-    padding-right: 2rem;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-
-}
-
-@media (max-width: 463px) {
-  .hero-status-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 2.5rem;
+  .animate-pulse-ring,
+  .animate-float,
+  .animate-glow-pan {
+    animation: none !important;
   }
-
-  .hero-status-info {
-    margin-top: 10px;
-    border: 1px solid rgb(40, 39, 39);
-  }
-
-  .hero-header {
-    font-size: 40px;
-    text-align: left;
-    font-weight: 600;
-    letter-spacing: 2px;
-  }
-
-  .hero-subtext-mobile {
-    text-align: left;
-  }
-
-  .project-header {
-    text-align: left;
-    margin-left: 2.5rem;
-  }
-
 }

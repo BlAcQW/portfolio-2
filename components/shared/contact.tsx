@@ -1,51 +1,86 @@
 'use client'
 import Link from "next/link";
-import { contactlinks } from "@/constants/contactLinks";
+import { Mail, Linkedin, Phone, MapPin, type LucideIcon } from "lucide-react";
+import { contactlinks, type ContactKind } from "@/constants/contactLinks";
+import SlideIn from "./SlideIn";
+
+const iconFor: Record<ContactKind, LucideIcon> = {
+  email: Mail,
+  linkedin: Linkedin,
+  phone: Phone,
+  location: MapPin,
+};
 
 function Contact() {
+  const year = 2026;
+
   return (
-    <div id="contact" className="cursor-pointer mt-32 px-4 lg:px-8 mb-12">
-      <div className="text-center">
-        <header className="pb-7 flex items-center justify-center">
-          <img className="w-14 h-14"
-            src="https://framerusercontent.com/images/tDOGAARw0kdQ37aQk0HWXiX9X8.png?scale-down-to=512" alt="icon" />
-          <span className="text-2xl font-bold font-sans text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-pink-100">
-            {" "} get in touch!</span>
-        </header>
-      </div>
+    <footer id="contact" className="px-5 pb-12 pt-24 lg:px-8">
+      <div className="mx-auto max-w-5xl">
+        <SlideIn direction="bottom">
+          <div className="glass relative overflow-hidden rounded-[2rem] p-9 md:p-14">
+            {/* Ambient glow */}
+            <div className="accent-glow animate-glow-pan pointer-events-none absolute -right-10 -top-10 h-60 w-60 rounded-full opacity-25 blur-3xl" />
 
-      {/* <!-- Use flex-col to stack on small screens, flex-row for larger screens --> */}
-      <div className="flex flex-col sm:flex-row justify-between items-center border-2 border-neutral-800 bg-neutral-900 md:max-w-4xl mx-auto lg:max-w-6xl rounded-3xl p-8 hover:bg-gradient-to-bl hover:via-transparent hover:from-black hover:to-black transition-all duration-300">
-        <div className="mb-4 sm:mb-0">
-          <span className="text-neutral-300 text-xs tracking-wide font-medium">Reach out to me <span aria-hidden="true">→</span></span> <br />
-          <Link href="mailto:somkeneoj@gmail.com">
-            <span className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-100 hover:text-pink-500 tracking-wide font-sans">
-              somkeneoj@gmail.com
-            </span>
-          </Link>
-        </div>
+            <div className="relative text-center">
+              <span className="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
+                Get in touch
+              </span>
+              <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
+                Let&apos;s build something <span className="text-gradient">worth shipping</span>.
+              </h2>
+              <Link
+                href="mailto:enochhenyo@gmail.com"
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-6 py-3 text-emerald-200 transition-colors duration-300 hover:bg-emerald-400/20"
+              >
+                <Mail className="h-4 w-4" /> enochhenyo@gmail.com
+              </Link>
+            </div>
 
-        {/* <!-- Keep icons in a straight line using flex-row on all screen sizes --> */}
-        <div className="flex flex-row items-center space-x-4">
-          {contactlinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-14 w-14 flex items-center justify-center"
-              aria-label={link.title}
-              style={{
-                transform: `rotate(${(index + 1) % 2 === 0 ? (index + 1) * 3 : -(index + 1) * 3}deg)`,
-              }}
-            >
-              <img src={link.icon} className="hover:scale-125 transition-transform duration-300 " />
-            </Link>
-          ))}
+            {/* Contact details */}
+            <div className="relative mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {contactlinks.map((link) => {
+                const Icon = iconFor[link.kind];
+                const inner = (
+                  <div className="flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] px-5 py-4 transition-colors duration-300 hover:border-emerald-400/30">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-emerald-400/10 text-emerald-300">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-xs uppercase tracking-wider text-neutral-500">
+                        {link.title}
+                      </p>
+                      <p className="truncate text-neutral-200">{link.value}</p>
+                    </div>
+                  </div>
+                );
+
+                return link.href ? (
+                  <Link
+                    key={link.kind}
+                    href={link.href}
+                    {...(link.kind === "linkedin"
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={link.kind}>{inner}</div>
+                );
+              })}
+            </div>
+          </div>
+        </SlideIn>
+
+        {/* Footer line */}
+        <div className="mt-10 flex flex-col items-center justify-between gap-2 text-sm text-neutral-500 sm:flex-row">
+          <span className="font-display font-semibold text-neutral-300">Enoch Henyo</span>
+          <span>© {year} · Built in Accra, Ghana</span>
         </div>
       </div>
-    </div>
-  )
+    </footer>
+  );
 }
 
-export default Contact
+export default Contact;

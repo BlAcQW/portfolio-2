@@ -1,82 +1,108 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { ArrowUpRight } from "lucide-react";
 import SlideIn from "./SlideIn";
-import { projectData } from "@/constants/projectData";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { projectData, type Tech } from "@/constants/projectData";
+
+function TechBadge({ tech }: { tech: Tech }) {
+    return (
+        <li className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-neutral-300">
+            {tech.icon && (
+                <img
+                    src={tech.icon}
+                    alt=""
+                    aria-hidden
+                    className={`h-3.5 w-3.5 ${tech.invert ? "invert" : ""}`}
+                />
+            )}
+            {tech.name}
+        </li>
+    );
+}
 
 export const Projects = () => {
     return (
-        <SlideIn direction="bottom">
-            <div className="font-sans">
-                <div className="text-center mb-10 mx-4 project-header">
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                        Selected <span className="text-pink-200">Projects</span>
-                    </p>
-                    <p className="mt-3  font-light text-gray-300">
-                        Recent works to see my creativity in action.
-                    </p>
-                </div>
+        <section id="projects" className="px-5 py-24 lg:px-8">
+            <div className="mx-auto max-w-6xl">
+                {/* Section heading */}
+                <SlideIn direction="bottom">
+                    <div className="mb-14 text-center">
+                        <span className="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
+                            Selected Work
+                        </span>
+                        <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+                            Selected <span className="text-gradient">Projects</span>
+                        </h2>
+                        <p className="mt-3 font-light text-neutral-400">
+                            A range of full-stack and AI products I&apos;ve designed and built.
+                        </p>
+                    </div>
+                </SlideIn>
 
-                <div className="card-container px-4 lg:px-8">
-                    {projectData.map((project, index) => (
-                        <div
-                            key={index}
-                            className="card md:sticky lg:sticky pb-20 md:pb-0 border-2 border-neutral-800 md:max-w-4xl lg:max-w-6xl mx-auto bg-neutral-900 rounded-3xl my-14 cursor-pointer hover:shadow-[0_0px_10px_0_rgba(255,105,180,0.2)] hover:bg-gradient-to-tl hover:via-transparent hover:from-neutral-950 hover:to-neutral-950 transition-all duration-300"
-                            style={{ top: `calc(96px + ${index * 20}px)`, height: "auto" }}
-                        >
-                            {/* TOP SECTION */}
-                            <section className="pl-6 py-9 flex items-center justify-between">
-                                <span className="text-gray-400 tracking-widest text-sm font-light card-top-section-header">
-                                    {`0${index + 1} | ${project.niche}`}
-                                </span>
-                                <Link href={project.sourceCode} target="_blank" rel="noopener noreferrer">
-                                    <span>
-                                        <GitHubLogoIcon className="mr-6 h-7 w-7 border border-neutral-700 rounded-full text-purple-700 hover:scale-105 hover:text-indigo-200 transition-all duration-300" />
-                                    </span>
-                                </Link>
-                            </section>
-
-                            {/* GRID SECTION */}
-                            <section className="grid grid-cols-12 gap-4">
-                                <div className={`col-span-12 md:col-span-6 lg:col-span-6 ${project.device === 'laptop' && ' md:rounded-tr-3xl md:border-t-[3px] md:border-r-[3px] md:border-zinc-800'}`}>
-                                    <img
-                                        src={project.image}
-                                        alt={`${project.title} project screenshot`}
-                                        className={`object-cover h-[400px] mx-auto ${project.device === 'laptop' && 'sm:w-full sm:object-center md:object-left md:border-t-[16px] md:border-r-[16px] md:border-neutral-950 md:rounded-tr-3xl md:rounded-bl-3xl'} `}
+                {/* Cards */}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    {projectData.map((project, index) => {
+                        const Icon = project.icon;
+                        return (
+                            <SlideIn key={project.title} direction="bottom">
+                                <article className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.04]">
+                                    {/* Ambient gradient glow */}
+                                    <div
+                                        className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gradient-to-br ${project.gradient} opacity-40 blur-3xl transition-opacity duration-500 group-hover:opacity-70`}
                                     />
-                                </div>
-                                <div className="col-span-12 md:col-span-6 lg:col-span-6 pl-6 md:pl-4 pr-8 pt-11 text-left">
-                                    {/* HEADER SECTION */}
-                                    <h1 className="text-gray-200 text-3xl mb-1 font-medium flex items-center gap-2">
-                                        <project.icon className="bg-neutral-950 hover:animate-spin p-2 rounded-full h-10 w-10 border border-neutral-400" /> {project.title}
-                                    </h1>
-                                    <p className="text-gray-400 tracking-wide pt-2 font-light">{project.description}</p>
 
-                                    {/* TECHNOLOGIES USED ICONS */}
-                                    <ul className="pt-11 flex items-center gap-2">
-                                        {project.technologies.map((tech, techIndex) => (
-                                            <li key={techIndex}>
-                                                <img className={`mr-4 w-7 h-7 ${tech.style || ''}`} src={tech.icon} alt={`${tech.name} logo`} />
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <div className="relative flex h-full flex-col">
+                                        {/* Top row */}
+                                        <div className="flex items-start justify-between">
+                                            <span className="font-display text-sm font-medium tracking-widest text-neutral-500">
+                                                {`0${index + 1}`}
+                                            </span>
+                                            <div
+                                                className={`flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br ${project.gradient}`}
+                                            >
+                                                <Icon className="h-5 w-5 text-white" />
+                                            </div>
+                                        </div>
 
-                                    {/* LIVE PREVIEW LINK */}
-                                    <section className="pt-11">
-                                        <Link href={project.livePreview} target="_blank" rel="noopener noreferrer">
-                                            <p className="text-gray-300 hover:underline tracking-wide">
-                                                🌍 Live Preview →
-                                            </p>
-                                        </Link>
-                                    </section>
-                                </div>
-                            </section>
-                        </div>
-                    ))}
+                                        {/* Niche + title */}
+                                        <p className="mt-6 text-xs font-medium uppercase tracking-[0.2em] text-emerald-300/70">
+                                            {project.niche}
+                                        </p>
+                                        <h3 className="font-display mt-1 text-2xl font-semibold text-white">
+                                            {project.title}
+                                        </h3>
+
+                                        {/* Description */}
+                                        <p className="mt-3 flex-1 text-sm font-light leading-relaxed tracking-wide text-neutral-400">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Tech */}
+                                        <ul className="mt-6 flex flex-wrap gap-2">
+                                            {project.technologies.map((tech) => (
+                                                <TechBadge key={tech.name} tech={tech} />
+                                            ))}
+                                        </ul>
+
+                                        {/* Live link (only where a public deploy exists) */}
+                                        {project.live && (
+                                            <Link
+                                                href={project.live}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="mt-6 inline-flex w-fit items-center gap-1 text-sm font-medium text-emerald-300 transition-colors hover:text-emerald-200"
+                                            >
+                                                Live preview
+                                                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                            </Link>
+                                        )}
+                                    </div>
+                                </article>
+                            </SlideIn>
+                        );
+                    })}
                 </div>
-            </div >
-        </SlideIn >
+            </div>
+        </section>
     );
 };

@@ -1,56 +1,74 @@
-import { experiences } from "@/constants/experience"
-import Link from "next/link"
-import { CalendarIcon } from "@radix-ui/react-icons"
-import SlideIn from "./SlideIn"
-import { ArrowTopRightIcon } from "@radix-ui/react-icons";
-
+import { experiences } from "@/constants/experience";
+import SlideIn from "./SlideIn";
 
 function Experience() {
     return (
-        <section className="px-4 lg:px-8 my-48 cursor-pointer experience-container">
-            <div className="md:max-w-4xl mx-auto lg:max-w-6xl">
-                <div className="mt-8 rounded-3xl text-left">
-                    <div className="grid grid-cols-12 gap-6">
-                        {experiences.map((exp, index) => (
-                            <div key={index} className="col-span-12 lg:col-span-6 ">
-                                <SlideIn direction="bottom">
-                                    <div className="border border-neutral-800 p-8 rounded-2xl experience-card">
-                                        <section className="flex items-center justify-between">
-                                            <h1 className="font-semibold text-gray-100">
-                                                {exp.role},
-                                                <Link href={exp.link} target="_blank" rel="noopener noreferrer"> {exp.company} </Link>
-                                                {" "}  <img alt="" src={exp.location} className="ml-0.5 inline-block h-auto w-5 shrink-0" />
-                                            </h1>
-                                            <span className="hidden md:block">
-                                                <Link href={exp.link} target="_blank" rel="noopener noreferrer">
-                                                    <ArrowTopRightIcon className="text-gray-100 hover:scale-125 transition-all duration-300" />
-                                                </Link>
-                                            </span>
-                                        </section>
-                                        <h3 className="mt-1 text-neutral-500 text-sm font-medium mb-4 flex items-center">
-                                            <CalendarIcon className="mr-2" /> {exp.duration}
-                                        </h3>
-                                        <hr className="h-1 bg-gradient-to-r from-pink-500 to-yellow-300 border-0" />
-                                        <p className="mt-5 text-gray-100 text-sm tracking-wide">{exp.description1}</p>
-
-                                        <ul className="mt-2">
-                                            {exp.technologies.map((tech, techIndex) => (
-                                                <li key={techIndex} className="inline-block mr-3 mt-3 font-light border border-neutral-800 rounded text-white py-1 px-2 text-xs bg-neutral-900">
-                                                    {tech}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </SlideIn>
-                            </div>
-                        ))}
+        <section id="experience" className="px-5 py-24 lg:px-8">
+            <div className="mx-auto max-w-4xl">
+                <SlideIn direction="bottom">
+                    <div className="mb-14">
+                        <span className="text-xs font-medium uppercase tracking-[0.35em] text-emerald-300/80">
+                            Career
+                        </span>
+                        <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl">
+                            Experience
+                        </h2>
                     </div>
+                </SlideIn>
+
+                {/* Timeline */}
+                <div className="relative border-l border-white/10 pl-8 md:pl-10">
+                    {experiences.map((exp) => (
+                        <div key={`${exp.company}-${exp.role}`} className="relative pb-12 last:pb-0">
+                            {/* Node */}
+                            <span className="absolute -left-[37px] top-1.5 flex h-3.5 w-3.5 items-center justify-center md:-left-[45px]">
+                                <span className="h-3.5 w-3.5 rounded-full border border-emerald-400/50 bg-emerald-400/20" />
+                                <span className="absolute h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            </span>
+
+                            <SlideIn direction="bottom">
+                                <div className="glass rounded-2xl p-7 transition-colors duration-300 hover:border-emerald-400/20">
+                                    <div className="flex flex-wrap items-start justify-between gap-2">
+                                        <div>
+                                            <h3 className="font-display text-lg font-semibold text-white">
+                                                {exp.role}{" "}
+                                                <span className="text-emerald-300">· {exp.company}</span>
+                                            </h3>
+                                            <p className="mt-0.5 text-sm text-neutral-500">{exp.location}</p>
+                                        </div>
+                                        {exp.tag && (
+                                            <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-emerald-200">
+                                                {exp.tag}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <p className="mt-2 text-xs font-medium uppercase tracking-wider text-neutral-500">
+                                        {exp.duration}
+                                    </p>
+
+                                    <p className="mt-4 text-sm leading-relaxed tracking-wide text-neutral-300">
+                                        {exp.description}
+                                    </p>
+
+                                    <ul className="mt-4 flex flex-wrap gap-2">
+                                        {exp.technologies.map((tech) => (
+                                            <li
+                                                key={tech}
+                                                className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs text-neutral-400"
+                                            >
+                                                {tech}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </SlideIn>
+                        </div>
+                    ))}
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-
-
-export default Experience
+export default Experience;

@@ -1,46 +1,23 @@
-export const stackIcons = [
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
-        style: "rounded",
-        name: "Javascript"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
-        style: "rounded",
-        name: "Typescript"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
-        name: "Tailwind"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-        style: "bg-neutral-950 rounded-full p-2",
-        name: "React"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg",
-        name: "NextJs"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
-        name: "NodeJs"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
-        name: "Express",
-        style: "bg-gray-100 rounded-full p-2",
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg",
-        name: "Postman"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg",
-        name: "MongoDB"
-    },
-    {
-        src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
-        name: "PostgreSQL"
-    },
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+
+export type StackIcon = {
+    src: string;
+    name: string;
+    /** Extra classes applied to the <img>, e.g. `invert` for dark monochrome logos. */
+    style?: string;
+};
+
+export const stackIcons: StackIcon[] = [
+    { src: `${DEVICON}/javascript/javascript-original.svg`, name: "JavaScript" },
+    { src: `${DEVICON}/typescript/typescript-original.svg`, name: "TypeScript" },
+    { src: `${DEVICON}/react/react-original.svg`, name: "React" },
+    { src: `${DEVICON}/nextjs/nextjs-original.svg`, name: "Next.js", style: "invert" },
+    { src: `${DEVICON}/nodejs/nodejs-original.svg`, name: "Node.js" },
+    { src: `${DEVICON}/python/python-original.svg`, name: "Python" },
+    { src: `${DEVICON}/tailwindcss/tailwindcss-original.svg`, name: "Tailwind" },
+    { src: `${DEVICON}/postgresql/postgresql-original.svg`, name: "PostgreSQL" },
+    { src: `${DEVICON}/prisma/prisma-original.svg`, name: "Prisma", style: "invert" },
+    { src: `${DEVICON}/mongodb/mongodb-original.svg`, name: "MongoDB" },
+    { src: `${DEVICON}/git/git-original.svg`, name: "Git" },
+    { src: `${DEVICON}/fastapi/fastapi-original.svg`, name: "FastAPI" },
 ];

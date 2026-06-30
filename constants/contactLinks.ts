@@ -1,25 +1,34 @@
-export const contactlinks = [
+export type ContactKind = "email" | "linkedin" | "phone" | "location";
+
+export type ContactLink = {
+    kind: ContactKind;
+    title: string;
+    value: string;
+    href?: string;
+};
+
+export const contactlinks: ContactLink[] = [
     {
-        title: "Linkedin",
-        icon: 'https://framerusercontent.com/images/RYuwqCxHlxrSfIOO7JZreY9YX9Q.png',
-        href: "https://www.linkedin.com/in/somkene-ojukwu/",
+        kind: "email",
+        title: "Email",
+        value: "enochhenyo@gmail.com",
+        href: "mailto:enochhenyo@gmail.com",
     },
     {
-        title: "Threads",
-        icon: 'https://framerusercontent.com/images/23QIkTXJxWXuDvTC7jrVLxmu5cA.png',
-        href: "https://www.threads.net/@codes.by.oj",
+        kind: "linkedin",
+        title: "LinkedIn",
+        value: "in/henyo-enoch",
+        href: "https://www.linkedin.com/in/henyo-enoch",
     },
     {
-        title: "Instagram",
-        icon: 'https://framerusercontent.com/images/qyHjNFaKZK3J0IgI963dEUUJ4.png',
-        href: "https://www.instagram.com/codes.by.oj/",
+        kind: "phone",
+        title: "Phone",
+        value: "+233 59 353 6814",
+        href: "tel:+233593536814",
     },
     {
-        title: "Twitter",
-        icon: 'https://framerusercontent.com/images/8yvYtcx3cfJFOTpz7A4hI9AtiI.png',
-        href: "https://x.com/somkeneOj",
-    }
+        kind: "location",
+        title: "Location",
+        value: "Accra, Ghana",
+    },
 ];
-
-
-
